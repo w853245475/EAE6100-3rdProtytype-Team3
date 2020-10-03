@@ -62,7 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\MoveByTouch.cs" />
+    <Compile Include="Assets\Scripts\MoveByTouch.cs" />
+    <Compile Include="Assets\Scripts\MoveCamera.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Editor/2019.4.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
