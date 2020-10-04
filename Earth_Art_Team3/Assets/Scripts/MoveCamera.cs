@@ -31,7 +31,7 @@ public class MoveCamera : MonoBehaviour
                 float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
 
                 float difference = currentMagnitude - prevMagnitude;
-                zoom(difference * 0.01f);
+                //zoom(difference * 0.01f);
             }
 
             else if(Input.GetMouseButton(0))
@@ -40,7 +40,7 @@ public class MoveCamera : MonoBehaviour
                 //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
                 
-                Camera.main.transform.position += direction;
+                //Camera.main.transform.position += direction;
                 
                 
                 //Camera.main.transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY), -10);

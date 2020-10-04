@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - DragPlant
   - Container
+  - DragPlant
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
     locked: 0
   - name: New Layer
     uniqueID: 1600740515
+    locked: 0
+  - name: Plants
+    uniqueID: 452907345
     locked: 0

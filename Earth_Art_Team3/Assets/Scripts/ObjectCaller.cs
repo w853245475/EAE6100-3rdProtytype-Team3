@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndDragHandler
+public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndDragHandler, IPointerUpHandler
 {
     public GameObject objectDrag;
     public GameObject objectGame;
     public Canvas canvas;
     private GameObject objectDragInstance;
+    private GameManage gameManager;
     public void OnDrag(PointerEventData eventData)
     {
         objectDragInstance.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -25,27 +26,34 @@ public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IE
 
         objectDragInstance = Instantiate(objectDrag);
         objectDragInstance.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        objectDragInstance.GetComponent<ObjectDragging>().card = this;
 
-            
+        gameManager.DraggingObject = objectDragInstance;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        gameManager.PlaceObject();
+        gameManager.DraggingObject = null;
+        Destroy(objectDragInstance);
+
         MoveCamera cam = Camera.main.GetComponent<MoveCamera>();
         cam.CanMoveCamera = true;
+
+
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         MoveCamera cam = Camera.main.GetComponent<MoveCamera>();
         cam.CanMoveCamera = true;
-        Debug.Log(cam.CanMoveCamera);
+ 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameManage.instance;
     }
 
     // Update is called once per frame
