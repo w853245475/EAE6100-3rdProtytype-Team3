@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SleepButton : MonoBehaviour
+public class SleepButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public Image FadeImage;
     // Start is called before the first frame update
     void Start()
     {
         FadeImage.canvasRenderer.SetAlpha(0.0f);
+        FadeImage.enabled = false;
+
     }
 
     // Update is called once per frame
@@ -18,14 +21,16 @@ public class SleepButton : MonoBehaviour
         
     }
 
-    void FadeIn()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        FadeImage.CrossFadeAlpha(1, 2, false);
+
     }
 
-    void FadeOut()
+    public void OnPointerUp(PointerEventData eventData)
     {
-        FadeImage.CrossFadeAlpha(0, 2, false);
+        FadeImage.enabled = true;
+        FadeImage.canvasRenderer.SetAlpha(0.0f);
+
+        GameManage.instance.DayEndCalculation();
     }
-    
 }
