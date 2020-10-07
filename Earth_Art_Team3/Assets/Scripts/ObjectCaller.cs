@@ -24,7 +24,7 @@ public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IE
         MoveCamera cam = Camera.main.GetComponent<MoveCamera>();
         cam.CanMoveCamera = false;
 
-        objectDragInstance = Instantiate(objectDrag);
+        objectDragInstance = Instantiate(objectDrag, canvas.transform);
         objectDragInstance.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         objectDragInstance.GetComponent<ObjectDragging>().card = this;
 

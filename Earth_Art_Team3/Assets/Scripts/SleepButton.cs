@@ -12,7 +12,6 @@ public class SleepButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         FadeImage.canvasRenderer.SetAlpha(0.0f);
         FadeImage.enabled = false;
-
     }
 
     // Update is called once per frame
