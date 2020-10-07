@@ -12,6 +12,8 @@ public class GameManage : MonoBehaviour
     public Image FadeImage;
     public GameObject TotalContainer;
     public int gameDays = 0;
+
+    
     public Canvas canvas;
     public GameObject customer;
 
@@ -26,7 +28,7 @@ public class GameManage : MonoBehaviour
     public GameObject SpawnPoint4;
 
     public GameObject Bee;
-
+    
     private int spawnBeeCounter = 0;
     private int spawnBeeTime = 2000;
     private void Awake()
@@ -93,6 +95,7 @@ public class GameManage : MonoBehaviour
     {
         GameObject currentBee = Instantiate(Bee, canvas.transform);
     }
+
 
 
     private void Update()
