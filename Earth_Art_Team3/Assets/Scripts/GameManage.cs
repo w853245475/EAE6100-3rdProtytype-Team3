@@ -16,10 +16,19 @@ public class GameManage : MonoBehaviour
     public GameObject customer;
 
     const float customerWaitPos = 18f;
-    const float customerArrivePos = 12.5f;
+    const float customerArrivePos = 13f;
     private bool customerArrived = false;
     private bool customerReceived = false;
 
+    public GameObject SpawnPoint1;
+    public GameObject SpawnPoint2;
+    public GameObject SpawnPoint3;
+    public GameObject SpawnPoint4;
+
+    public GameObject Bee;
+
+    private int spawnBeeCounter = 0;
+    private int spawnBeeTime = 2000;
     private void Awake()
     {
         instance = this;
@@ -63,7 +72,7 @@ public class GameManage : MonoBehaviour
 
     IEnumerator Wake()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         FadeImage.enabled = false;
 
     }
@@ -80,8 +89,15 @@ public class GameManage : MonoBehaviour
         StartCoroutine(Wake());
     }
 
+    void SpawnBee()
+    {
+        GameObject currentBee = Instantiate(Bee, canvas.transform);
+    }
+
+
     private void Update()
     {
+        //Debug.Log(customer.GetComponent<Transform>().position.x);
         if(gameDays == 1)
         {
             if (customer.GetComponent<Transform>().position.x >= customerWaitPos)
@@ -95,7 +111,19 @@ public class GameManage : MonoBehaviour
                 if (customerReceived == true)
                     customer.GetComponent<Rigidbody2D>().velocity = new Vector2(1.0f, 0.0f);
             }
+        }
 
+        if (spawnBeeCounter <= spawnBeeTime)
+            spawnBeeCounter++;
+        else
+        {
+            spawnBeeCounter = 0;
+            SpawnBee();
         }
     }
+    private void Start()
+    {
+
+    }
+ 
 }

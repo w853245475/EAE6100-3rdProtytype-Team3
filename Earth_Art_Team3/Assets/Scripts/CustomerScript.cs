@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public int TodayFlowerCount = 0;
+
     public void OnPointerDown(PointerEventData eventData)
     {
         
@@ -30,6 +32,9 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(collision.tag == "Plants")
+        {
+            Debug.Log("Yes!0");
+        }
     }
 }

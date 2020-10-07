@@ -45,7 +45,7 @@ public class MoveCamera : MonoBehaviour
                 
                 //Camera.main.transform.position = new Vector3(Mathf.Clamp(transform.position.x, minX, maxX), Mathf.Clamp(transform.position.y, minY, maxY), -10);
             }
-            zoom(Input.GetAxis("Mouse ScrollWheel"));
+            //zoom(Input.GetAxis("Mouse ScrollWheel"));
         }
     }
 

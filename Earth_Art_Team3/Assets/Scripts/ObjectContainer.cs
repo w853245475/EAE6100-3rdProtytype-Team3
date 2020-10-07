@@ -16,7 +16,6 @@ public class ObjectContainer : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger");
         if(gameManager.DraggingObject != null && !isFull)
         {
             gameManager.CurrentContainer = this.gameObject;
