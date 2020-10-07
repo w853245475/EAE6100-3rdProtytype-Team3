@@ -11,6 +11,7 @@ public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IE
     public Canvas canvas;
     private GameObject objectDragInstance;
     private GameManage gameManager;
+
     public void OnDrag(PointerEventData eventData)
     {
         objectDragInstance.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);

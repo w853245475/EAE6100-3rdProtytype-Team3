@@ -21,6 +21,9 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
     public GameObject SpawnPoint4;
 
     private bool UseBee = true;
+    private bool isOnPlant = false;
+    private bool isPlayAnim = true;
+    private GameObject Flower = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +33,6 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
         else
             UseBee = true;
 
-
-        /*
         int position = Random.Range(0, 4);
         switch (position)
         {
@@ -55,9 +56,7 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
                 this.GetComponent<Rigidbody2D>().velocity = new Vector3(-5.0f, 0.0f, 0.0f);
                 break;
         }
-        */
-
-
+        
         if (this.GetComponent<Rigidbody2D>().velocity.x >= 0)
         {
             if (Mathf.Abs(180 - this.GetComponent<Image>().transform.rotation.y) >= 1)
@@ -86,29 +85,36 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
     // Update is called once per frame
     void Update()
     {
+        
         if (animCounter <= animChange)
         {
             animCounter++;
         }
         else
         {
-            if (UseBee)
+            if (isPlayAnim)
             {
-                if (this.GetComponent<Image>().sprite == FirstFrame)
-                    this.GetComponent<Image>().sprite = LastFrame;
+
+
+                if (UseBee)
+                {
+                    if (this.GetComponent<Image>().sprite == FirstFrame)
+                        this.GetComponent<Image>().sprite = LastFrame;
+                    else
+                        this.GetComponent<Image>().sprite = FirstFrame;
+                    animCounter = 0;
+                }
                 else
-                    this.GetComponent<Image>().sprite = FirstFrame;
-                animCounter = 0;
-            }
-            else
-            {
-                if (this.GetComponent<Image>().sprite == FirstFrame2)
-                    this.GetComponent<Image>().sprite = LastFrame2;
-                else
-                    this.GetComponent<Image>().sprite = FirstFrame2;
-                animCounter = 0;
+                {
+                    if (this.GetComponent<Image>().sprite == FirstFrame2)
+                        this.GetComponent<Image>().sprite = LastFrame2;
+                    else
+                        this.GetComponent<Image>().sprite = FirstFrame2;
+                    animCounter = 0;
+                }
             }
         }
+        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -124,30 +130,75 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
 
     }
 
+   
+
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("Yes!!!!");
+
         this.GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         this.transform.position = new Vector3(this.transform.position.x,
                                                 this.transform.position.y,
                                                 0);
-        Debug.Log("Yes!!!!");
+
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-
+        if(isOnPlant)
+        {
+            isPlayAnim = false;
+            this.transform.position = Flower.transform.position;
+            StartCoroutine(StayOnFlower());
+        }
 
     }
 
     IEnumerator StayOnFlower()
     {
         yield return new WaitForSeconds(3);
+        isPlayAnim = true;
 
+        int randomDir = Random.Range(0, 4);
+        switch (randomDir)
+        {
+            case 3:
+                this.GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 5.0f, 0.0f);
+                break;
+
+            case 0:
+                this.GetComponent<Rigidbody2D>().velocity = new Vector3(5.0f, 0.0f, 0.0f);
+                break;
+
+            case 1:
+                this.GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, -5.0f, 0.0f);
+                break;
+
+            case 2:
+                this.GetComponent<Rigidbody2D>().velocity = new Vector3(-5.0f, 0.0f, 0.0f);
+                break;
+        }
+
+        if (GameManage.instance.TodayIncreaseFlower < GameManage.instance.MaxiumIncreaseFlower)
+            GameManage.instance.TodayIncreaseFlower++;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
+        if(collision.tag == "Plants")
+        {
+            isOnPlant = true;
+            Flower = collision.gameObject;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Plants")
+        {
+            isOnPlant = false;
+            Flower = null;
+        }
     }
 }

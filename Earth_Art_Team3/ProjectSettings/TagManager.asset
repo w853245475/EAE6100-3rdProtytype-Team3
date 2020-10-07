@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Plants
   - Customer
+  - DragPlant
   layers:
   - Default
   - TransparentFX

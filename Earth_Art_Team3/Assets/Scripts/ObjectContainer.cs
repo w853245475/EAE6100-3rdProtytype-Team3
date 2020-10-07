@@ -16,7 +16,7 @@ public class ObjectContainer : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(gameManager.DraggingObject != null && !isFull)
+        if(gameManager.DraggingObject != null && !isFull && collision.tag == "DragPlant")
         {
             gameManager.CurrentContainer = this.gameObject;
             backgroundImage.enabled = true;
@@ -25,7 +25,10 @@ public class ObjectContainer : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        gameManager.CurrentContainer = null;
-        backgroundImage.enabled = false;
+        if (collision.tag == "DragPlant")
+        {
+            gameManager.CurrentContainer = null;
+            backgroundImage.enabled = false;
+        }
     }
 }

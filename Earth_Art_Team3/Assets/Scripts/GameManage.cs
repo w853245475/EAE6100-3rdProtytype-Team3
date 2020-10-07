@@ -28,9 +28,16 @@ public class GameManage : MonoBehaviour
     public GameObject SpawnPoint4;
 
     public GameObject Bee;
+
+    [Header("Plants")]
+    public GameObject WhiteRose;
     
     private int spawnBeeCounter = 0;
     private int spawnBeeTime = 2000;
+
+    public int MaxiumIncreaseFlower = 3;
+    public int TodayIncreaseFlower = 0;
+
     private void Awake()
     {
         instance = this;
@@ -60,16 +67,12 @@ public class GameManage : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
 
-        ObjectContainer[] allContainers = TotalContainer.GetComponentsInChildren<ObjectContainer>();
-        foreach (ObjectContainer container in allContainers)
-        {
-            if (container.isFull)
-            {
-                container.GetComponentInChildren<PlantGrow>().grow();
-            }
-        }
-
+        SpawnFlower();
+        GrowFlower();
+        TodayIncreaseFlower = 0;
+        
         FadeOut();
+
     }
 
     IEnumerator Wake()
@@ -127,6 +130,41 @@ public class GameManage : MonoBehaviour
     private void Start()
     {
 
+    }
+
+    void SpawnFlower()
+    {
+        ObjectContainer[] allContainers = TotalContainer.GetComponentsInChildren<ObjectContainer>();
+        int spawnedFlowerCount = 0;
+        foreach (ObjectContainer container in allContainers)
+        {
+
+            if (!container.isFull)
+            {
+                GameObject SpawnedPlant = Instantiate(WhiteRose, canvas.transform);
+                SpawnedPlant.transform.SetParent(container.transform);
+                SpawnedPlant.transform.position = container.transform.position;
+
+                container.GetComponent<ObjectContainer>().isFull = true;
+                spawnedFlowerCount++;
+            }
+
+            if (spawnedFlowerCount >= TodayIncreaseFlower)
+                break;
+
+        }
+    }
+
+    void GrowFlower()
+    {
+        ObjectContainer[] allContainers = TotalContainer.GetComponentsInChildren<ObjectContainer>();
+        foreach (ObjectContainer container in allContainers)
+        {
+            if (container.isFull)
+            {
+                container.GetComponentInChildren<PlantGrow>().grow();
+            }
+        }
     }
  
 }
