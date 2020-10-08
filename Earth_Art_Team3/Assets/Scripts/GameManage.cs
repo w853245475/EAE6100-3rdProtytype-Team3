@@ -13,31 +13,33 @@ public class GameManage : MonoBehaviour
     public GameObject TotalContainer;
     public int gameDays = 0;
 
-    
     public Canvas canvas;
     public GameObject customer;
 
-    const float customerWaitPos = 18f;
-    const float customerArrivePos = 13f;
-    private bool customerArrived = false;
-    private bool customerReceived = false;
+
 
     public GameObject SpawnPoint1;
     public GameObject SpawnPoint2;
     public GameObject SpawnPoint3;
     public GameObject SpawnPoint4;
 
+    [Header("Bee")]
     public GameObject Bee;
+    public GameObject BeeContainer;
 
     [Header("Plants")]
     public GameObject WhiteRose;
+    public GameObject RedRose;
+    public GameObject PinkRose;
     
     private int spawnBeeCounter = 0;
-    private int spawnBeeTime = 2000;
+    private int spawnBeeTime = 3000;
 
     public int MaxiumIncreaseFlower = 3;
     public int TodayIncreaseFlower = 0;
 
+    private bool canSpawnBee = true;
+    private bool canSpawnFlower = true;
     private void Awake()
     {
         instance = this;
@@ -58,6 +60,7 @@ public class GameManage : MonoBehaviour
     public void DayEndCalculation()
     {
         gameDays++;
+        canSpawnBee = false;
         FadeIn();
   
         StartCoroutine(Sleep());
@@ -67,10 +70,13 @@ public class GameManage : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
 
-        SpawnFlower();
+
         GrowFlower();
+
+        SpawnFlower(PinkRose);
         TodayIncreaseFlower = 0;
         
+
         FadeOut();
 
     }
@@ -79,7 +85,7 @@ public class GameManage : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         FadeImage.enabled = false;
-
+        canSpawnBee = true;
     }
 
     public void FadeIn()
@@ -96,62 +102,72 @@ public class GameManage : MonoBehaviour
 
     void SpawnBee()
     {
-        GameObject currentBee = Instantiate(Bee, canvas.transform);
+        GameObject currentBee = Instantiate(Bee, BeeContainer.transform);
     }
-
 
 
     private void Update()
     {
         //Debug.Log(customer.GetComponent<Transform>().position.x);
-        if(gameDays == 1)
+        if(gameDays == 4)
         {
-            if (customer.GetComponent<Transform>().position.x >= customerWaitPos)
-            {
-                customer.GetComponent<Rigidbody2D>().velocity = new Vector2(-1.0f, 0.0f);
-                customerArrived = true;
-            }
-            else if(customer.GetComponent<Transform>().position.x <= customerArrivePos)
-            {
-                customer.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
-                if (customerReceived == true)
-                    customer.GetComponent<Rigidbody2D>().velocity = new Vector2(1.0f, 0.0f);
-            }
-        }
+            customer.GetComponent<CustomerScript>().SetSail();
 
-        if (spawnBeeCounter <= spawnBeeTime)
-            spawnBeeCounter++;
+            
+        }
         else
         {
-            spawnBeeCounter = 0;
-            SpawnBee();
+            /*
+            if (customer.GetComponent<Transform>().position.x <= customerArrivePos)
+            {
+                if (customerReceived == true)
+                {
+                    customer.GetComponent<Rigidbody2D>().velocity = new Vector2(1.0f, 0.0f);
+                }
+
+                else
+                    customer.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
+            }
+            */
+        }
+
+        if (canSpawnBee)
+        {
+            if (spawnBeeCounter <= spawnBeeTime)
+                spawnBeeCounter++;
+            else
+            {
+                spawnBeeCounter = 0;
+                SpawnBee();
+            }
         }
     }
+
     private void Start()
     {
 
     }
 
-    void SpawnFlower()
+    void SpawnFlower(GameObject flower)
     {
+        Debug.Log(TodayIncreaseFlower);
         ObjectContainer[] allContainers = TotalContainer.GetComponentsInChildren<ObjectContainer>();
         int spawnedFlowerCount = 0;
         foreach (ObjectContainer container in allContainers)
         {
-
+            if (spawnedFlowerCount >= TodayIncreaseFlower)
+                break;
             if (!container.isFull)
             {
-                GameObject SpawnedPlant = Instantiate(WhiteRose, canvas.transform);
+                GameObject SpawnedPlant = Instantiate(flower, canvas.transform);
+                SpawnedPlant.GetComponent<Image>().sprite = SpawnedPlant.GetComponent<PlantGrow>().seedSprite;
                 SpawnedPlant.transform.SetParent(container.transform);
                 SpawnedPlant.transform.position = container.transform.position;
 
                 container.GetComponent<ObjectContainer>().isFull = true;
                 spawnedFlowerCount++;
+                Debug.Log("Yes");
             }
-
-            if (spawnedFlowerCount >= TodayIncreaseFlower)
-                break;
-
         }
     }
 

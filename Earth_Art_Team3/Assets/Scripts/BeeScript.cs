@@ -134,8 +134,6 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Yes!!!!");
-
         this.GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         this.transform.position = new Vector3(this.transform.position.x,

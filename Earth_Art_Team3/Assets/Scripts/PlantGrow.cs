@@ -89,11 +89,16 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
         {
             if (IsMature)
             {
-                
                 if (EndDrag)
                 {
-                    Debug.Log("Die");
+                    if(finishSprite.name == "p_flower" )
+                    {
+                        CustomerScript.instance.customerReceived = true;
+                    }
+
                     this.GetComponentInParent<ObjectContainer>().isFull = false;
+                    CustomerScript.instance.TodayFlowerCount++;
+                    Debug.Log(CustomerScript.instance.TodayFlowerCount);
                     Destroy(this.gameObject);
                 }
             }

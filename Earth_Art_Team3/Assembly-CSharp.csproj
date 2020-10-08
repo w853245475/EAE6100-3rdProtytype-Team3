@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BeeScript.cs" />
+    <Compile Include="Assets\Scripts\BookScript.cs" />
     <Compile Include="Assets\Scripts\CustomerScript.cs" />
     <Compile Include="Assets\Scripts\GameManage.cs" />
     <Compile Include="Assets\Scripts\MoveByTouch.cs" />
