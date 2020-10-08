@@ -10,14 +10,20 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
     public Sprite midSprite;
     public Sprite finishSprite;
 
-    private bool IsMature = false;
+    public bool IsMature = false;
     private bool EndDrag = false;
 
-    int DayPlaced;
+    public int DayPlaced;
+
+    private void Awake()
+    {
+        //DayPlaced = GameManage.instance.gameDays;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
-        DayPlaced = GameManage.instance.gameDays;
     }
 
     // Update is called once per frame
@@ -42,6 +48,9 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
         {
             this.GetComponent<Image>().sprite = finishSprite;
             IsMature = true;
+            Debug.Log("asdasd:");
+            Debug.Log(GameManage.instance.gameDays);
+            Debug.Log(DayPlaced);
         }
     }
 

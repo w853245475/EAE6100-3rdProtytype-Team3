@@ -33,7 +33,7 @@ public class GameManage : MonoBehaviour
     public GameObject PinkRose;
     
     private int spawnBeeCounter = 0;
-    private int spawnBeeTime = 3000;
+    private int spawnBeeTime = 1500;
 
     public int MaxiumIncreaseFlower = 3;
     public int TodayIncreaseFlower = 0;
@@ -59,7 +59,7 @@ public class GameManage : MonoBehaviour
 
     public void DayEndCalculation()
     {
-        gameDays++;
+        
         canSpawnBee = false;
         FadeIn();
   
@@ -69,11 +69,12 @@ public class GameManage : MonoBehaviour
     IEnumerator Sleep()
     {
         yield return new WaitForSeconds(5);
-
-
+        gameDays++;
+        SpawnFlower(PinkRose);
         GrowFlower();
 
-        SpawnFlower(PinkRose);
+
+        
         TodayIncreaseFlower = 0;
         
 
@@ -160,7 +161,7 @@ public class GameManage : MonoBehaviour
             if (!container.isFull)
             {
                 GameObject SpawnedPlant = Instantiate(flower, canvas.transform);
-                SpawnedPlant.GetComponent<Image>().sprite = SpawnedPlant.GetComponent<PlantGrow>().seedSprite;
+                SpawnedPlant.GetComponent<PlantGrow>().DayPlaced = gameDays - 1;
                 SpawnedPlant.transform.SetParent(container.transform);
                 SpawnedPlant.transform.position = container.transform.position;
 
