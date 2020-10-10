@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler, IDragHandler, IEndDragHandler
-{
+{ 
+
     public Sprite seedSprite;
     public Sprite midSprite;
     public Sprite finishSprite;
@@ -14,6 +15,7 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
     private bool EndDrag = false;
 
     public int DayPlaced;
+    public string FlowerName;
 
     private void Awake()
     {
@@ -56,7 +58,8 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(IsMature)
+        this.transform.localScale = 1.5f * this.transform.localScale;
+        if (IsMature)
         {
 
             this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -68,6 +71,7 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        this.transform.localScale = this.transform.localScale / 1.5f;
         EndDrag = true;
     }
 

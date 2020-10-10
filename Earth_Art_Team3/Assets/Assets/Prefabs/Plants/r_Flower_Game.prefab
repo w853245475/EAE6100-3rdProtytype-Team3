@@ -92,6 +92,9 @@ MonoBehaviour:
   seedSprite: {fileID: 21300000, guid: 9ee41a061b7c65f4fb01f0a418ceee8b, type: 3}
   midSprite: {fileID: 21300000, guid: 6311b78f013c87d4e8df10e5b8179dcd, type: 3}
   finishSprite: {fileID: 21300000, guid: 3185730b2085971428b91ca5b59cebe6, type: 3}
+  IsMature: 0
+  DayPlaced: 0
+  FlowerName: RedRose
 --- !u!61 &5333859963175760763
 BoxCollider2D:
   m_ObjectHideFlags: 0

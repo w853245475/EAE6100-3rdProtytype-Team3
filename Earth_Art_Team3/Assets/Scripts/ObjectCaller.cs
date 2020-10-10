@@ -6,12 +6,16 @@ using UnityEngine.EventSystems;
 
 public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndDragHandler, IPointerUpHandler
 {
+
     public GameObject objectDrag;
     public GameObject objectGame;
     public Canvas canvas;
     private GameObject objectDragInstance;
     private GameManage gameManager;
 
+    [Header("Given By Customer")]
+    public bool IsGivenByCustomer;
+    public int SeedTag;
     public void OnDrag(PointerEventData eventData)
     {
         objectDragInstance.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -22,6 +26,16 @@ public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IE
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        this.transform.localScale = 1.5f * this.transform.localScale;
+        if (IsGivenByCustomer)
+        {
+            if(SeedTag == 1)
+            {
+                canvas.transform.GetChild(4).gameObject.SetActive(true);
+                Destroy(this.gameObject);
+            }
+        }
+
         MoveCamera cam = Camera.main.GetComponent<MoveCamera>();
         cam.CanMoveCamera = false;
 
@@ -34,6 +48,7 @@ public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IE
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        this.transform.localScale = this.transform.localScale / 1.5f;
         gameManager.PlaceObject();
         gameManager.DraggingObject = null;
         Destroy(objectDragInstance);

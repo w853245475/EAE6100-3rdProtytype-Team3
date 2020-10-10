@@ -30,7 +30,7 @@ public class GameManage : MonoBehaviour
     [Header("Plants")]
     public GameObject WhiteRose;
     public GameObject RedRose;
-    public GameObject PinkRose;
+    public GameObject obj;
     
     private int spawnBeeCounter = 0;
     private int spawnBeeTime = 1500;
@@ -40,6 +40,9 @@ public class GameManage : MonoBehaviour
 
     private bool canSpawnBee = true;
     private bool canSpawnFlower = true;
+
+    [Header("Spawn Plant")]
+    public List<GameObject> FlowersToSpawn;
     private void Awake()
     {
         instance = this;
@@ -70,11 +73,13 @@ public class GameManage : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         gameDays++;
-        SpawnFlower(PinkRose);
+
+        foreach (GameObject obj in FlowersToSpawn)
+        {
+            SpawnFlower(obj);
+        }
         GrowFlower();
-
-
-        
+        FlowersToSpawn.Clear();
         TodayIncreaseFlower = 0;
         
 
@@ -110,7 +115,7 @@ public class GameManage : MonoBehaviour
     private void Update()
     {
         //Debug.Log(customer.GetComponent<Transform>().position.x);
-        if(gameDays == 4)
+        if(gameDays == 1)
         {
             customer.GetComponent<CustomerScript>().SetSail();
 
@@ -153,11 +158,11 @@ public class GameManage : MonoBehaviour
     {
         Debug.Log(TodayIncreaseFlower);
         ObjectContainer[] allContainers = TotalContainer.GetComponentsInChildren<ObjectContainer>();
-        int spawnedFlowerCount = 0;
+        //int spawnedFlowerCount = 0;
         foreach (ObjectContainer container in allContainers)
         {
-            if (spawnedFlowerCount >= TodayIncreaseFlower)
-                break;
+            //if (spawnedFlowerCount >= TodayIncreaseFlower)
+            //    break;
             if (!container.isFull)
             {
                 GameObject SpawnedPlant = Instantiate(flower, canvas.transform);
@@ -166,8 +171,8 @@ public class GameManage : MonoBehaviour
                 SpawnedPlant.transform.position = container.transform.position;
 
                 container.GetComponent<ObjectContainer>().isFull = true;
-                spawnedFlowerCount++;
-                Debug.Log("Yes");
+                //spawnedFlowerCount++;
+                return;
             }
         }
     }

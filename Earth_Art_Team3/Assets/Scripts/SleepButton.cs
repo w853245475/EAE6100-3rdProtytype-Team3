@@ -22,11 +22,12 @@ public class SleepButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-
+        this.transform.localScale = 1.5f * this.transform.localScale;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        this.transform.localScale = this.transform.localScale / 1.5f;
         FadeImage.enabled = true;
         FadeImage.canvasRenderer.SetAlpha(0.0f);
 

@@ -24,6 +24,19 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
     private bool isOnPlant = false;
     private bool isPlayAnim = true;
     private GameObject Flower = null;
+
+
+    [Header("Two Flowers")]
+    public GameObject firstFlower = null;
+    public GameObject secondFlower = null;
+    public int flowerCount = 0;
+    public bool ContactedTwoFlowers = false;
+
+    [Header("Instance of Flowers")]
+    public GameObject RedRose;
+    public GameObject PinkRose;
+    public GameObject WhiteRose;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -119,6 +132,10 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (ContactedTwoFlowers)
+        {
+            return;
+        }
         this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         this.transform.position = new Vector3(this.transform.position.x,
                                                 this.transform.position.y,
@@ -134,22 +151,68 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        this.GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
-        this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        this.transform.position = new Vector3(this.transform.position.x,
-                                                this.transform.position.y,
-                                                0);
+        this.transform.localScale = 1.5f * this.transform.localScale;
+        if (ContactedTwoFlowers)
+        {
+            return;
+        }
+        else
+        {
+            this.GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            this.transform.position = new Vector3(this.transform.position.x,
+                                                    this.transform.position.y,
+                                                    0);
+        }
 
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(isOnPlant)
+        this.transform.localScale = this.transform.localScale / 1.5f;
+        if (isOnPlant)
         {
             isPlayAnim = false;
             this.transform.position = Flower.transform.position;
+            flowerCount++;
+            if(flowerCount == 1)
+            {
+                firstFlower = Flower;
+            }
+            else
+            {
+                secondFlower = Flower;
+            }
             StartCoroutine(StayOnFlower());
         }
+        if(flowerCount >= 2 && !ContactedTwoFlowers)
+        {
+            if((firstFlower.GetComponent<PlantGrow>().FlowerName == "WhiteRose" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "RedRose") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "RedRose" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "WhiteRose"))
+            {
+                GameManage.instance.FlowersToSpawn.Add(PinkRose);
+            }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "WhiteRose" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "WhiteRose") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "WhiteRose" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "WhiteRose"))
+            {
+                GameManage.instance.FlowersToSpawn.Add(WhiteRose);
+            }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "RedRose" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "RedRose") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "RedRose" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "RedRose"))
+            {
+                GameManage.instance.FlowersToSpawn.Add(RedRose);
+            }
+            ContactedTwoFlowers = true;
+        }
+
 
     }
 

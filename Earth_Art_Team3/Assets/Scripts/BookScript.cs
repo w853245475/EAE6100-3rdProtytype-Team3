@@ -10,7 +10,7 @@ public class BookScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-
+        this.transform.localScale = 1.5f * this.transform.localScale;
 
 
 
@@ -18,6 +18,7 @@ public class BookScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        this.transform.localScale = this.transform.localScale/1.5f;
         if (Book.GetComponent<Image>().enabled == false)
         {
             Book.GetComponent<Image>().enabled = true;

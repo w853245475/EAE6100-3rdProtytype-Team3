@@ -66,6 +66,10 @@
     <Compile Include="Assets\Scripts\BeeScript.cs" />
     <Compile Include="Assets\Scripts\BookScript.cs" />
     <Compile Include="Assets\Scripts\CustomerScript.cs" />
+    <Compile Include="Assets\Scripts\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\DialogueBox.cs" />
+    <Compile Include="Assets\Scripts\DialogueManager.cs" />
+    <Compile Include="Assets\Scripts\DialogueTrigger.cs" />
     <Compile Include="Assets\Scripts\GameManage.cs" />
     <Compile Include="Assets\Scripts\MoveByTouch.cs" />
     <Compile Include="Assets\Scripts\MoveCamera.cs" />

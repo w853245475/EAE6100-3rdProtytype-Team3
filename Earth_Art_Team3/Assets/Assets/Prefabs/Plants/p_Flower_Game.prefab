@@ -92,6 +92,9 @@ MonoBehaviour:
   seedSprite: {fileID: 21300000, guid: 0bbd18902b1e9114492eca3d8820fcdd, type: 3}
   midSprite: {fileID: 21300000, guid: 4919fdf088667704f9e3579fff0fc9e5, type: 3}
   finishSprite: {fileID: 21300000, guid: 3df19750a8ca12c4fb4fa3553fb8838d, type: 3}
+  IsMature: 0
+  DayPlaced: 0
+  FlowerName: PinkRose
 --- !u!61 &5333859963175760763
 BoxCollider2D:
   m_ObjectHideFlags: 0
