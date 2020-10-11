@@ -26,6 +26,7 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
     // Start is called before the first frame update
     void Start()
     {
+        //DayPlaced = GameManage.instance.gameDays;
     }
 
     // Update is called once per frame

@@ -36,10 +36,19 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
     public GameObject RedRose;
     public GameObject PinkRose;
     public GameObject WhiteRose;
+    public GameObject BlueNone;
+    public GameObject OrangeNone;
+    public GameObject GreenNone;
+    public GameObject BlueLight;
+    public GameObject OrangeLight;
+    public GameObject GreenLight;
+    public GameObject BlueDark;
+
 
     // Start is called before the first frame update
     void Start()
     {
+
         int decideSprite = Random.Range(0, 2);
         if (decideSprite == 1)
             UseBee = false;
@@ -98,7 +107,11 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
     // Update is called once per frame
     void Update()
     {
-        
+        if(Vector2.Distance( this.transform.position, Camera.main.transform.position) >= 100)
+        {
+            Destroy(this.gameObject);
+        }
+
         if (animCounter <= animChange)
         {
             animCounter++;
@@ -210,6 +223,120 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
             {
                 GameManage.instance.FlowersToSpawn.Add(RedRose);
             }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "OrangeNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "OrangeNone") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "OrangeNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "OrangeNone"))
+            {
+                int decide = Random.Range(0, 4);
+                if (decide == 3)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(OrangeLight);
+                }
+                else
+                {
+                    GameManage.instance.FlowersToSpawn.Add(OrangeNone);
+                }
+            }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "GreenNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "GreenNone") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "GreenNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "GreenNone"))
+            {
+                GameManage.instance.FlowersToSpawn.Add(GreenNone);
+            }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "BlueNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "BlueNone") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "BlueNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "BlueNone"))
+            {
+                GameManage.instance.FlowersToSpawn.Add(BlueNone);
+            }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "OrangeNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "GreenNone") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "GreenNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "OrangeNone"))
+            {
+                int decide = Random.Range(0, 4);
+                if (decide == 0)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(GreenNone);
+                }
+                else if(decide == 1)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(OrangeNone);
+                }
+                else
+                {
+                    GameManage.instance.FlowersToSpawn.Add(GreenLight);
+                }
+            }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "BlueNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "OrangeNone") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "OrangeNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "BlueNone"))
+            {
+                GameManage.instance.FlowersToSpawn.Add(BlueNone);
+            }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "BlueNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "GreenNone") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "GreenNone" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "BlueNone"))
+            {
+                int decide = Random.Range(0, 4);
+                if (decide == 0 || decide == 1)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(BlueNone);
+                }
+                else
+                {
+                    GameManage.instance.FlowersToSpawn.Add(BlueLight);
+                }
+            }
+
+            if ((firstFlower.GetComponent<PlantGrow>().FlowerName == "BlueLight" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "BlueLight") ||
+                (firstFlower.GetComponent<PlantGrow>().FlowerName == "BlueLight" &&
+                secondFlower.GetComponent<PlantGrow>().FlowerName == "BlueLight"))
+            {
+                int decide = Random.Range(0, 16);
+                if (decide <= 5)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(BlueLight);
+                }
+                else if(5 < decide && decide <= 8)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(GreenNone);
+                }
+
+                else if (8 < decide && decide <= 11)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(BlueNone);
+                }
+
+                else if (11 < decide && decide <= 12)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(OrangeNone);
+                }
+
+                else if (12 < decide && decide <= 14)
+                {
+                    GameManage.instance.FlowersToSpawn.Add(OrangeLight);
+                }
+
+                else
+                {
+                    GameManage.instance.FlowersToSpawn.Add(BlueDark);
+                }
+            }
+
+
             ContactedTwoFlowers = true;
         }
 

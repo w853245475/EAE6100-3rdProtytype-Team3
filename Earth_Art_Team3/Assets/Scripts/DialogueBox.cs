@@ -12,7 +12,6 @@ public class DialogueBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         bool hasText = DialogueManager.instance.DisplayNextSentence();
         if(!hasText)
         {
-            CustomerScript.instance.giveSeeds();
             this.transform.parent.gameObject.SetActive(false);
         }
     }

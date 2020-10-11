@@ -29,9 +29,10 @@ public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IE
         this.transform.localScale = 1.5f * this.transform.localScale;
         if (IsGivenByCustomer)
         {
-            if(SeedTag == 1)
+            if(SeedTag == 0)
             {
-                canvas.transform.GetChild(4).gameObject.SetActive(true);
+                canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
+                //canvas.transform.GetChild(4).gameObject.SetActive(true);
                 Destroy(this.gameObject);
             }
         }

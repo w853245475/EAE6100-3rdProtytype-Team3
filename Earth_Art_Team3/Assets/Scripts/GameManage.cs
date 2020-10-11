@@ -55,7 +55,7 @@ public class GameManage : MonoBehaviour
             GameObject SpawnedPlant = Instantiate(DraggingObject.GetComponent<ObjectDragging>().card.objectGame, canvas.transform);
             SpawnedPlant.transform.SetParent(CurrentContainer.transform);
             SpawnedPlant.transform.position = CurrentContainer.transform.position;
-
+            SpawnedPlant.GetComponent<PlantGrow>().DayPlaced = gameDays;
             CurrentContainer.GetComponent<ObjectContainer>().isFull = true;
         }
     }
@@ -81,7 +81,12 @@ public class GameManage : MonoBehaviour
         GrowFlower();
         FlowersToSpawn.Clear();
         TodayIncreaseFlower = 0;
-        
+        if(customer.GetComponent<CustomerScript>().customerReceived == true)
+        {
+            customer.GetComponent<CustomerScript>().IsSetSail = false;
+            customer.GetComponent<CustomerScript>().ArriveTimes++;
+            customer.GetComponent<CustomerScript>().customerReceived = false;
+        }
 
         FadeOut();
 
@@ -117,8 +122,6 @@ public class GameManage : MonoBehaviour
         //Debug.Log(customer.GetComponent<Transform>().position.x);
         if(gameDays == 1)
         {
-            customer.GetComponent<CustomerScript>().SetSail();
-
             
         }
         else
@@ -156,7 +159,6 @@ public class GameManage : MonoBehaviour
 
     void SpawnFlower(GameObject flower)
     {
-        Debug.Log(TodayIncreaseFlower);
         ObjectContainer[] allContainers = TotalContainer.GetComponentsInChildren<ObjectContainer>();
         //int spawnedFlowerCount = 0;
         foreach (ObjectContainer container in allContainers)
@@ -186,6 +188,14 @@ public class GameManage : MonoBehaviour
             {
                 container.GetComponentInChildren<PlantGrow>().grow();
             }
+        }
+    }
+
+    public void openBook()
+    {
+        if(canvas.transform.Find("Book").GetComponent<BookScript>().Book.gameObject.active == false)
+        {
+            canvas.transform.Find("Book").GetComponent<BookScript>().Book.gameObject.SetActive(true);
         }
     }
  

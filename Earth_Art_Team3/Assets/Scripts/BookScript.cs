@@ -19,13 +19,13 @@ public class BookScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         this.transform.localScale = this.transform.localScale/1.5f;
-        if (Book.GetComponent<Image>().enabled == false)
+        if (Book.gameObject.active == false)
         {
-            Book.GetComponent<Image>().enabled = true;
+            Book.gameObject.SetActive(true);
         }
         else
         {
-            Book.GetComponent<Image>().enabled = false;
+            Book.gameObject.SetActive(false);
         }
     }
 

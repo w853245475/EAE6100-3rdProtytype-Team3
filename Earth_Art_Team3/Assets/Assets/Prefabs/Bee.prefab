@@ -110,6 +110,20 @@ MonoBehaviour:
     type: 3}
   WhiteRose: {fileID: 2599125139196817418, guid: a247dfac76ea661439c9b71a84fdacd5,
     type: 3}
+  BlueNone: {fileID: 2599125139196817418, guid: 101a074afde18994a95df3e14341b5c1,
+    type: 3}
+  OrangeNone: {fileID: 2599125139196817418, guid: 9bcbc0e82b78cfd48b8ccf9a9c97a8cc,
+    type: 3}
+  GreenNone: {fileID: 2599125139196817418, guid: ded302be9aa83324f9b21107f9d2ea9a,
+    type: 3}
+  BlueLight: {fileID: 2599125139196817418, guid: d7e2a89528f1ff648b48d85bc2024923,
+    type: 3}
+  OrangeLight: {fileID: 2599125139196817418, guid: 62ab0b109e75a214e813450ae9b66633,
+    type: 3}
+  GreenLight: {fileID: 2599125139196817418, guid: 231f7776df19d984db5840399867caa2,
+    type: 3}
+  BlueDark: {fileID: 2599125139196817418, guid: 9fadf2808660ab54dba4af7a48b9a4d1,
+    type: 3}
 --- !u!61 &3452615108961454778
 BoxCollider2D:
   m_ObjectHideFlags: 0

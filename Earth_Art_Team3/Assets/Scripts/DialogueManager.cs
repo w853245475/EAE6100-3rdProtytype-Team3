@@ -52,6 +52,43 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        Debug.Log("End");
+        if(CustomerScript.instance.ArriveTimes == 0)
+        {
+            GameManage.instance.openBook();
+            CustomerScript.instance.customerReceived = true;
+            CustomerScript.instance.canStartDialogue = false;
+        }
+
+        if (CustomerScript.instance.ArriveTimes == 1)
+        {
+            CustomerScript.instance.giveSeeds();
+            CustomerScript.instance.customerReceived = true;
+            CustomerScript.instance.canStartDialogue = false;
+            CustomerScript.instance.ClearGround();
+        }
+
+        if (CustomerScript.instance.ArriveTimes == 2)
+        {
+            CustomerScript.instance.customerReceived = true;
+            CustomerScript.instance.canStartDialogue = false;
+            CustomerScript.instance.ClearGround();
+            GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(false);
+        }
+
+        if (CustomerScript.instance.ArriveTimes == 3)
+        {
+            CustomerScript.instance.customerReceived = true;
+            CustomerScript.instance.canStartDialogue = false;
+            CustomerScript.instance.ClearGround();
+            GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
+        }
+
+        if (CustomerScript.instance.ArriveTimes == 4)
+        {
+            CustomerScript.instance.customerReceived = true;
+            CustomerScript.instance.canStartDialogue = false;
+            CustomerScript.instance.ClearGround();
+            GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
+        }
     }
 }
