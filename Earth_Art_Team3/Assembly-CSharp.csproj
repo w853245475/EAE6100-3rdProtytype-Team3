@@ -77,7 +77,9 @@
     <Compile Include="Assets\Scripts\ObjectContainer.cs" />
     <Compile Include="Assets\Scripts\ObjectDragging.cs" />
     <Compile Include="Assets\Scripts\PlantGrow.cs" />
+    <Compile Include="Assets\Scripts\QuitGameScript.cs" />
     <Compile Include="Assets\Scripts\SleepButton.cs" />
+    <Compile Include="Assets\Scripts\StartMenuScript.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Editor/2019.4.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -642,9 +644,6 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/Pengxi Wang/Desktop/EAE6100/Project3/EAE6100-3rdProtytype-Team3/Earth_Art_Team3/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="com.unity.postprocessing.Editor">
-      <HintPath>C:/Users/Pengxi Wang/Desktop/EAE6100/Project3/EAE6100-3rdProtytype-Team3/Earth_Art_Team3/Library/ScriptAssemblies/com.unity.postprocessing.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/Pengxi Wang/Desktop/EAE6100/Project3/EAE6100-3rdProtytype-Team3/Earth_Art_Team3/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
@@ -662,9 +661,6 @@
     </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>C:/Users/Pengxi Wang/Desktop/EAE6100/Project3/EAE6100-3rdProtytype-Team3/Earth_Art_Team3/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.postprocessing.Runtime">
-      <HintPath>C:/Users/Pengxi Wang/Desktop/EAE6100/Project3/EAE6100-3rdProtytype-Team3/Earth_Art_Team3/Library/ScriptAssemblies/com.unity.postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>C:/Users/Pengxi Wang/Desktop/EAE6100/Project3/EAE6100-3rdProtytype-Team3/Earth_Art_Team3/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>

@@ -305,7 +305,7 @@ public class BeeScript : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndD
                 (firstFlower.GetComponent<PlantGrow>().FlowerName == "BlueLight" &&
                 secondFlower.GetComponent<PlantGrow>().FlowerName == "BlueLight"))
             {
-                int decide = Random.Range(0, 16);
+                int decide = Random.Range(0, 21);
                 if (decide <= 5)
                 {
                     GameManage.instance.FlowersToSpawn.Add(BlueLight);
