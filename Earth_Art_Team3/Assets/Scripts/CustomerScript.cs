@@ -144,7 +144,7 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 if (container.isFull)
                 {
                     PlantGrow currentPlant = container.GetComponentInChildren<PlantGrow>();
-                    if (currentPlant.FlowerName == "BlueLight" && currentPlant.IsMature)
+                    if (currentPlant.FlowerName == "GreenLight" && currentPlant.IsMature)
                     {
                         GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(false);
                         IsSetSail = true;
@@ -166,7 +166,7 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 if (container.isFull)
                 {
                     PlantGrow currentPlant = container.GetComponentInChildren<PlantGrow>();
-                    if (currentPlant.FlowerName == "BlueLight" && currentPlant.IsMature)
+                    if (currentPlant.FlowerName == "GreenLight" && currentPlant.IsMature)
                     {
                         ThridArriveCounter++;             
                     }

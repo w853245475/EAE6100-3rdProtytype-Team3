@@ -45320,7 +45320,7 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1169427110, guid: 01e6ca3f67105f34c9fb98122c78d902, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1169427111, guid: 01e6ca3f67105f34c9fb98122c78d902, type: 3}
       propertyPath: m_LocalScale.y
@@ -45621,6 +45621,18 @@ PrefabInstance:
       propertyPath: AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 3a91557531ea7824c94361cd1f295eee, type: 3}
+    - target: {fileID: 5245308113807963297, guid: 01e6ca3f67105f34c9fb98122c78d902,
+        type: 3}
+      propertyPath: objectDrag
+      value: 
+      objectReference: {fileID: 3040576891697121429, guid: bf962290c83897e43a27edad96964b48,
+        type: 3}
+    - target: {fileID: 5245308113807963297, guid: 01e6ca3f67105f34c9fb98122c78d902,
+        type: 3}
+      propertyPath: objectGame
+      value: 
+      objectReference: {fileID: 2599125139196817418, guid: 231f7776df19d984db5840399867caa2,
+        type: 3}
     - target: {fileID: 5870010382941099133, guid: 01e6ca3f67105f34c9fb98122c78d902,
         type: 3}
       propertyPath: AudioSource
