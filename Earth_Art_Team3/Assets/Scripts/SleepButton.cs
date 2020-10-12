@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class SleepButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public Image FadeImage;
+
+    public AudioSource AudioSource;
+    public AudioClip AudioClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +31,7 @@ public class SleepButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        AudioSource.PlayOneShot(AudioClip, 0.5f);
         this.transform.localScale = this.transform.localScale / 1.5f;
         FadeImage.enabled = true;
         FadeImage.canvasRenderer.SetAlpha(0.0f);

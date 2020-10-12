@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class QuitGameScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public AudioSource AudioSource;
+    public AudioClip AudioClip;
+
     public void OnPointerDown(PointerEventData eventData)
     {
 
@@ -12,6 +15,7 @@ public class QuitGameScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        AudioSource.PlayOneShot(AudioClip, 0.5f);
         Debug.Log("mamaipi");
 #if UNITY_EDITOR
 

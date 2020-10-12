@@ -6,12 +6,14 @@ using UnityEngine.EventSystems;
 
 public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IEndDragHandler, IPointerUpHandler
 {
-
     public GameObject objectDrag;
     public GameObject objectGame;
     public Canvas canvas;
     private GameObject objectDragInstance;
     private GameManage gameManager;
+
+    public AudioSource AudioSource;
+    public AudioClip AudioClip;
 
     [Header("Given By Customer")]
     public bool IsGivenByCustomer;
@@ -29,12 +31,13 @@ public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IE
         this.transform.localScale = 1.5f * this.transform.localScale;
         if (IsGivenByCustomer)
         {
-            if(SeedTag == 0)
-            {
-                canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
-                //canvas.transform.GetChild(4).gameObject.SetActive(true);
-                Destroy(this.gameObject);
-            }
+            //if(SeedTag == 0)
+            //{
+            //    canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
+            //    //canvas.transform.GetChild(4).gameObject.SetActive(true);
+                
+            //}
+            Destroy(this.gameObject);
         }
 
         MoveCamera cam = Camera.main.GetComponent<MoveCamera>();
@@ -49,6 +52,8 @@ public class ObjectCaller : MonoBehaviour, IDragHandler, IPointerDownHandler, IE
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        AudioSource.PlayOneShot(AudioClip, 0.5f);
+
         this.transform.localScale = this.transform.localScale / 1.5f;
         gameManager.PlaceObject();
         gameManager.DraggingObject = null;

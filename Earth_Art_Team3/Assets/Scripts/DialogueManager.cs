@@ -65,6 +65,7 @@ public class DialogueManager : MonoBehaviour
             CustomerScript.instance.customerReceived = true;
             CustomerScript.instance.canStartDialogue = false;
             CustomerScript.instance.ClearGround();
+            GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
         }
 
         if (CustomerScript.instance.ArriveTimes == 2)
@@ -72,7 +73,7 @@ public class DialogueManager : MonoBehaviour
             CustomerScript.instance.customerReceived = true;
             CustomerScript.instance.canStartDialogue = false;
             CustomerScript.instance.ClearGround();
-            GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(false);
+            //GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(false);
         }
 
         if (CustomerScript.instance.ArriveTimes == 3)
@@ -80,6 +81,7 @@ public class DialogueManager : MonoBehaviour
             CustomerScript.instance.customerReceived = true;
             CustomerScript.instance.canStartDialogue = false;
             CustomerScript.instance.ClearGround();
+            //GameManage.instance.canvas.transform.Find("Ending").gameObject.SetActive(true);
             GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
         }
 
@@ -88,7 +90,8 @@ public class DialogueManager : MonoBehaviour
             CustomerScript.instance.customerReceived = true;
             CustomerScript.instance.canStartDialogue = false;
             CustomerScript.instance.ClearGround();
-            GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
+            GameManage.instance.canvas.transform.Find("Ending").gameObject.SetActive(true);
+            //GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
         }
     }
 }

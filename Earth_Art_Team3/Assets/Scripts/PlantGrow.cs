@@ -51,7 +51,7 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
         {
             this.GetComponent<Image>().sprite = finishSprite;
             IsMature = true;
-            Debug.Log("asdasd:");
+            Debug.Log("Nima:");
             Debug.Log(GameManage.instance.gameDays);
             Debug.Log(DayPlaced);
         }
@@ -60,14 +60,14 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
     public void OnPointerDown(PointerEventData eventData)
     {
         this.transform.localScale = 1.5f * this.transform.localScale;
-        if (IsMature)
-        {
+        //if (IsMature)
+        //{
 
-            this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            this.transform.position = new Vector3(this.transform.position.x,
-                                                    this.transform.position.y,
-                                                    0);
-        }
+        //    this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    this.transform.position = new Vector3(this.transform.position.x,
+        //                                            this.transform.position.y,
+        //                                            0);
+        //}
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -78,13 +78,13 @@ public class PlantGrow : MonoBehaviour, IPointerDownHandler,  IPointerUpHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(IsMature)
-        {
-            this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            this.transform.position = new Vector3(this.transform.position.x,
-                                            this.transform.position.y,
-                                            0);
-        }
+        //if(IsMature)
+        //{
+        //    this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    this.transform.position = new Vector3(this.transform.position.x,
+        //                                    this.transform.position.y,
+        //                                    0);
+        //}
     }
 
     public void OnEndDrag(PointerEventData eventData)

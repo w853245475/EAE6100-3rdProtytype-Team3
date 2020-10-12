@@ -23,6 +23,13 @@ public class GameManage : MonoBehaviour
     public GameObject SpawnPoint3;
     public GameObject SpawnPoint4;
 
+    [Header("Audio")]
+    public AudioSource MusicControl;
+    public AudioClip BGM;
+    public AudioClip BGM2;
+    private float MusicTime = 200;
+
+
     [Header("Bee")]
     public GameObject Bee;
     public GameObject BeeContainer;
@@ -33,7 +40,7 @@ public class GameManage : MonoBehaviour
     public GameObject obj;
     
     private int spawnBeeCounter = 0;
-    private int spawnBeeTime = 1500;
+    private int spawnBeeTime = 1000;
 
     public int MaxiumIncreaseFlower = 3;
     public int TodayIncreaseFlower = 0;
@@ -154,7 +161,8 @@ public class GameManage : MonoBehaviour
 
     private void Start()
     {
-
+        playMusic();
+        InvokeRepeating("playMusic", 0, MusicTime);
     }
 
     void SpawnFlower(GameObject flower)
@@ -199,4 +207,10 @@ public class GameManage : MonoBehaviour
         }
     }
  
+
+    private void playMusic()
+    {
+        MusicControl.PlayOneShot(BGM, 0.5f);
+        MusicControl.PlayOneShot(BGM2, 0.5f);
+    }
 }

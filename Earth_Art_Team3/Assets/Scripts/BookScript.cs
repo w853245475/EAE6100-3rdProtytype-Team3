@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class BookScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public Image Book;
+    public AudioSource AudioSource;
+    public AudioClip AudioClip;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -18,6 +20,7 @@ public class BookScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        AudioSource.PlayOneShot(AudioClip, 0.5f);
         this.transform.localScale = this.transform.localScale/1.5f;
         if (Book.gameObject.active == false)
         {

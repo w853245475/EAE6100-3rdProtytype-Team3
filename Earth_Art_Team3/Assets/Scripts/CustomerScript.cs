@@ -6,13 +6,16 @@ using UnityEngine.EventSystems;
 
 public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public AudioSource AudioSource;
+    public AudioClip AudioClip;
+
     public static CustomerScript instance;
     
     public int TodayFlowerCount = 0;
 
 
-    public const float customerWaitPos = 18f;
-    public const float customerArrivePos = 13f;
+    public const float customerWaitPos = 20f;
+    public const float customerArrivePos = 13.9f;
 
     public bool customerArrived = false;
     public bool customerReceived = false;
@@ -41,23 +44,24 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                                       "but I think you can still get some useful information on it."};
 
     private string[] Arrive2Sentences = {"I got some special seeds last week, but I don’t know what genotype they are.",
-                                      "I will give them to you as a reward for helping me grow flowers.",
-                                      "And, can you help me plant three of them? See you next time.",
+                                      "Can you help me plant them? See you."
                                       };
 
-    private string[] Arrive3Sentences = {"These orange flowers are so beautiful, I really want to know how to hybridize to get such flowers.",
-                                      "Can you help me solve this problem?",
+    private string[] Arrive3Sentences = {"These orange flowers are so beautiful.",
+                                      "I want three of this flower! ",
+                                      "Can you help me think about which two plants can be crossed to get this kind of flower?"
                                       };
 
-    private string[] Arrive4Sentences = {"But I need some flowers of the genotype RryyWW.",
-                                      "Can you meet my needs?",
+    private string[] Arrive4Sentences = {"I want a blue flower with a special pattern (RRYYWW). ",
+                                         "This is the photo. Can you help me figure out how to plant it?"
                                       };
 
-    private string[] Arrive5Sentences = {"I want a blue flower with a special pattern (RRYYWW). This is the photo.",
-                                      "Can you help me figure out how to plant it?",
-                                      };
+    private string[] Arrive5Sentences = { "Ha! I guess you don’t know.",
+                                        "Actually, I am Mendel, I invite you to come here just want to let you learn something about Mendel’s law!",
+                                        "Congratulations you have completely mastered it!",
+                                        "These are all the flowers you plant for me. I saved them for you. Now I'll give it back to you as a reward.",
+                                        "I Hope you can keep learning genetics in the future! Bye!"};
 
-    private string[] Arrive6Sentences = {"Congrats!"};
     private void Awake()
     {
         instance = this;
@@ -101,10 +105,10 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
              this.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
         }
 
-        if(ArriveTimes == 0 && GameManage.instance.gameDays == 1 && !IsSetSail)
+        if(ArriveTimes == 0 && GameManage.instance.gameDays == 0 && !IsSetSail)
         {
             //SetSail();
-            
+            AudioSource.PlayOneShot(AudioClip, 0.5f);
             IsSetSail = true;
             this.GetComponent<DialogueTrigger>().dialogue.sentences = Day1Sentences;
         }
@@ -121,6 +125,7 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                     {
                         Debug.Log("arr");
                         //SetSail();
+                        AudioSource.PlayOneShot(AudioClip, 0.5f);
                         IsSetSail = true;
                         this.GetComponent<DialogueTrigger>().dialogue.sentences = Arrive2Sentences;
                         canStartDialogue = true;
@@ -133,6 +138,7 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         if (ArriveTimes == 2 && !IsSetSail)
         {
             ObjectContainer[] allContainers = PlantContainer.GetComponentsInChildren<ObjectContainer>();
+            int ThridArriveCounter = 0;
             foreach (ObjectContainer container in allContainers)
             {
                 if (container.isFull)
@@ -140,7 +146,9 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                     PlantGrow currentPlant = container.GetComponentInChildren<PlantGrow>();
                     if (currentPlant.FlowerName == "BlueLight" && currentPlant.IsMature)
                     {
+                        GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(false);
                         IsSetSail = true;
+                        AudioSource.PlayOneShot(AudioClip, 0.5f);
                         this.GetComponent<DialogueTrigger>().dialogue.sentences = Arrive3Sentences;
                         canStartDialogue = true;
                         break;
@@ -152,6 +160,7 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         if (ArriveTimes == 3 && !IsSetSail)
         {
             ObjectContainer[] allContainers = PlantContainer.GetComponentsInChildren<ObjectContainer>();
+            int ThridArriveCounter = 0;
             foreach (ObjectContainer container in allContainers)
             {
                 if (container.isFull)
@@ -159,8 +168,13 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                     PlantGrow currentPlant = container.GetComponentInChildren<PlantGrow>();
                     if (currentPlant.FlowerName == "BlueLight" && currentPlant.IsMature)
                     {
-                        Debug.Log("arr123");
+                        ThridArriveCounter++;             
+                    }
+                    if(ThridArriveCounter >= 3)
+                    {
+                        GameManage.instance.canvas.transform.Find("BlueLightSeed").gameObject.SetActive(true);
                         IsSetSail = true;
+                        AudioSource.PlayOneShot(AudioClip, 0.5f);
                         this.GetComponent<DialogueTrigger>().dialogue.sentences = Arrive4Sentences;
                         canStartDialogue = true;
                         break;
@@ -168,6 +182,27 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 }
             }
         }
+
+        //if (ArriveTimes == 3 && !IsSetSail)
+        //{
+        //    ObjectContainer[] allContainers = PlantContainer.GetComponentsInChildren<ObjectContainer>();
+        //    foreach (ObjectContainer container in allContainers)
+        //    {
+        //        if (container.isFull)
+        //        {
+        //            PlantGrow currentPlant = container.GetComponentInChildren<PlantGrow>();
+        //            if (currentPlant.FlowerName == "BlueLight" && currentPlant.IsMature)
+        //            {
+        //                Debug.Log("arr123");
+        //                AudioSource.PlayOneShot(AudioClip, 0.5f);
+        //                IsSetSail = true;
+        //                this.GetComponent<DialogueTrigger>().dialogue.sentences = Arrive4Sentences;
+        //                canStartDialogue = true;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
 
         if (ArriveTimes == 4 && !IsSetSail)
         {
@@ -180,6 +215,7 @@ public class CustomerScript : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                     if (currentPlant.FlowerName == "BlueDark" && currentPlant.IsMature)
                     {
                         Debug.Log("arr12333");
+                        AudioSource.PlayOneShot(AudioClip, 0.5f);
                         IsSetSail = true;
                         this.GetComponent<DialogueTrigger>().dialogue.sentences = Arrive5Sentences;
                         canStartDialogue = true;
